@@ -1,0 +1,30 @@
+<?php
+/**
+ * Plugin Name: Remote Work Cost Calculator
+ * Description: Adds a shortcode [remote_calculator] to display the remote work savings calculator.
+ * Version: 1.0
+ * Author: You
+ */
+
+function remote_calculator_shortcode() {
+    ob_start(); ?>
+    
+    <div class="calculator-container">
+        <h1>🏠 Remote Work Cost Calculator</h1>
+        <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">
+            Discover how much money you're saving by working from home
+        </p>
+        <!-- FORM AND RESULTS GO HERE (same as HTML you pasted earlier) -->
+    </div>
+    
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('remote_calculator', 'remote_calculator_shortcode');
+
+function remote_calculator_assets() {
+    wp_enqueue_style( 'remote-calculator-css', plugin_dir_url(__FILE__) . 'style.css' );
+    wp_enqueue_script( 'chartjs', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js', [], null, true );
+    wp_enqueue_script( 'remote-calculator-js', plugin_dir_url(__FILE__) . 'calculator.js', ['chartjs'], null, true );
+}
+add_action('wp_enqueue_scripts', 'remote_calculator_assets');
